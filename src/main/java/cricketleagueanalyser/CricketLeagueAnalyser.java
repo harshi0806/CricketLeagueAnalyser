@@ -61,6 +61,16 @@ public class CricketLeagueAnalyser {
         censusDAOList = descendingSort(strikeRateComparator.thenComparing(averageComparator), censusDAOList);
         return new Gson().toJson(censusDAOList);
     }
+    public String getMaxRunsWithBestAveragesWiseSortedCensusData() throws CricketLeagueAnalyserException {
+        if (censusMap  == null || censusMap .size() == 0) {
+            throw new CricketLeagueAnalyserException("No Census Data", CricketLeagueAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IPLCensusDAO> averageComparator = Comparator.comparing(census -> census.average);
+        Comparator<IPLCensusDAO> runsComparator = Comparator.comparing(census -> census.runs);
+        List<IPLCensusDAO> censusDAOList = censusMap.values().stream().collect(Collectors.toList());
+        censusDAOList = descendingSort(runsComparator.thenComparing(averageComparator), censusDAOList);
+        return new Gson().toJson(censusDAOList);
+    }
 
     private static <E> List<E> descendingSort(Comparator<E> censusComparator, List<E> censusList) {
         for (int i = 0; i < censusList.size()-1; i++) {

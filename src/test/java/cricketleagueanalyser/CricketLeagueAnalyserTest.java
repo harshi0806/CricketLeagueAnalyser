@@ -80,4 +80,15 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Ishant Sharma", censusCSV[0].player);
         } catch (CricketLeagueAnalyserException e ) { }
     }
+    // This test case checks for Sorted Factsheet Data in a Json format according to Max Runs with Best Averages of Batsman
+    @Test
+    public void givenMostRunsFactSheet_WhenSortedOnMaxRunsWithBestAverages_ShouldReturnSortedResult() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalyser.getMaxRunsWithBestAveragesWiseSortedCensusData();
+            IPLMostRunsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostRunsCensusCSV[].class);
+            Assert.assertEquals("David Warner", censusCSV[0].player);
+        } catch (CricketLeagueAnalyserException e ) { }
+    }
 }

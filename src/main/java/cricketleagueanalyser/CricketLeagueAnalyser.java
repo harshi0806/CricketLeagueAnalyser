@@ -23,6 +23,15 @@ public class CricketLeagueAnalyser {
         censusDAOList = descendingSort(censusComparator, censusDAOList);
         return new Gson().toJson(censusDAOList);
     }
+    public String getStrikingRateWiseSortedCensusData() throws CricketLeagueAnalyserException {
+        if (censusMap  == null || censusMap .size() == 0) {
+            throw new CricketLeagueAnalyserException("No Census Data", CricketLeagueAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IPLCensusDAO> censusComparator = Comparator.comparing(census -> census.strikeRate);
+        List<IPLCensusDAO> censusDAOList = censusMap.values().stream().collect(Collectors.toList());
+        censusDAOList = descendingSort(censusComparator, censusDAOList);
+        return new Gson().toJson(censusDAOList);
+    }
 
     private static <E> List<E> descendingSort(Comparator<E> censusComparator, List<E> censusList) {
         for (int i = 0; i < censusList.size()-1; i++) {

@@ -146,4 +146,15 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Krishnappa Gowtham", censusCSV[0].player);
         } catch (CricketLeagueAnalyserException e ) { }
     }
+    // This test case checks for Sorted Factsheet Data in a Json format according to Max Wkts with Best Averages of Bowler
+    @Test
+    public void givenMostWktsFactSheet_WhenSortedOnMaxWktsWithBestAverages_ShouldReturnSortedResult() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BOWLING, IPL_MOST_WKTS_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalyser.getMaxWktsWithBestAveragesWiseSortedCensusData();
+            IPLMostWktsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostWktsCensusCSV[].class);
+            Assert.assertEquals("Imran Tahir", censusCSV[0].player);
+        } catch (CricketLeagueAnalyserException e ) { }
+    }
 }

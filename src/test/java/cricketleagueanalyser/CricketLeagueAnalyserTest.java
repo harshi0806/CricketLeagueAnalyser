@@ -157,4 +157,18 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Imran Tahir", censusCSV[0].player);
         } catch (CricketLeagueAnalyserException e ) { }
     }
+    // This test case checks for Sorted Factsheet Data in a Json format for Best Batting and Bowling Averages
+    @Test
+    public void givenIPL2019FactsheetData_WhenSortedForBestBattingAndBowlingAverages_ShouldReturnName() throws CricketLeagueAnalyserException {
+        CricketLeagueAnalyser battingCensusAnalyser = new CricketLeagueAnalyser();
+        CricketLeagueAnalyser bowlingCensusAnalyser = new CricketLeagueAnalyser();
+        battingCensusAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
+        bowlingCensusAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BOWLING, IPL_MOST_WKTS_CENSUS_CSV_FILE_PATH);
+        String bestBattingAverages = battingCensusAnalyser.getBattingAverageWiseSortedCensusData();
+        String bestBowlingAverages = bowlingCensusAnalyser.getBowlingAverageWiseSortedCensusData();
+        IPLMostRunsCensusCSV[] battingcensusCSV = new Gson().fromJson(bestBattingAverages, IPLMostRunsCensusCSV[].class);
+        IPLMostWktsCensusCSV[] bowlingCensusCSV = new Gson().fromJson(bestBowlingAverages, IPLMostWktsCensusCSV[].class);
+        Assert.assertEquals("MS Dhoni", battingcensusCSV[0].player);
+        Assert.assertEquals("Krishnappa Gowtham", bowlingCensusCSV[0].player);
+    }
 }

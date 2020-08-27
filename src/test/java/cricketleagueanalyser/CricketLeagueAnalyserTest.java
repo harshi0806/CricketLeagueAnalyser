@@ -182,4 +182,15 @@ public class CricketLeagueAnalyserTest {
             Assert.assertEquals("Deepak Chahar", censusCSV[0].player);
         } catch (CricketLeagueAnalyserException e ) { }
     }
+    // This test case checks for Sorted Factsheet Data in a Json format according to Max 100 with best Batting Averages
+    @Test
+    public void givenMostRunsFactSheet_WhenSortedOnMax100WithBestBattingAverages_ShouldReturnSortedResult() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalyser.getMax100WithBestBattingAveragesWiseSortedCensusData();
+            IPLMostWktsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostWktsCensusCSV[].class);
+            Assert.assertEquals("MS Dhoni", censusCSV[0].player);
+        } catch (CricketLeagueAnalyserException e ) { }
+    }
 }

@@ -1,5 +1,6 @@
 package cricketleagueanalyser;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,5 +24,16 @@ public class CricketLeagueAnalyserTest {
             int numOfRecords = cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BOWLING, IPL_MOST_WKTS_CENSUS_CSV_FILE_PATH);
             Assert.assertEquals(99,numOfRecords);
         } catch (CricketLeagueAnalyserException e) { }
+    }
+    // This test case checks for Sorted Census Data in a Json format according to State alphabetical order
+    @Test
+    public void givenMostRunsFactSheet_WhenSortedOnBattingAverage_ShouldReturnSortedResult() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalyser.getBattingAverageWiseSortedCensusData();
+            IPLMostRunsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostRunsCensusCSV[].class);
+            Assert.assertEquals("MS Dhoni", censusCSV[0].player);
+        } catch (CricketLeagueAnalyserException e ) { }
     }
 }

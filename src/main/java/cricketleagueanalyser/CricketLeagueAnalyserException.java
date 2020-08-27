@@ -2,7 +2,7 @@ package cricketleagueanalyser;
 
 public class CricketLeagueAnalyserException extends Exception {
     enum ExceptionType{
-        CENSUS_FILE_PROBLEM, CENSUS_INCORRECT_HEADER, INVALID_PLAY
+        CENSUS_FILE_PROBLEM, CENSUS_INCORRECT_HEADER, INVALID_PLAY, NO_CENSUS_DATA
     }
     ExceptionType type;
     public CricketLeagueAnalyserException(String message, ExceptionType type) {

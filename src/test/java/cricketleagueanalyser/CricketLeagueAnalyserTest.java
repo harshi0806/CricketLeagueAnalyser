@@ -189,8 +189,19 @@ public class CricketLeagueAnalyserTest {
             CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
             cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
             String sortedCensusData = cricketLeagueAnalyser.getMax100WithBestBattingAveragesWiseSortedCensusData();
-            IPLMostWktsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostWktsCensusCSV[].class);
+            IPLMostRunsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostRunsCensusCSV[].class);
             Assert.assertEquals("MS Dhoni", censusCSV[0].player);
+        } catch (CricketLeagueAnalyserException e ) { }
+    }
+    // This test case checks for Sorted Factsheet Data in a Json format according to Zero 100 and 50 with best Batting Averages
+    @Test
+    public void givenMostRunsFactSheet_WhenSortedOnZero100And50WithBestBattingAverages_ShouldReturnSortedResult() {
+        try {
+            CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+            cricketLeagueAnalyser.loadIPLCensusData(CricketLeagueAnalyser.Play.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalyser.getZero100And50WithBestBattingAveragesWiseSortedCensusData();
+            IPLMostRunsCensusCSV[] censusCSV =  new Gson().fromJson(sortedCensusData, IPLMostRunsCensusCSV[].class);
+            Assert.assertEquals("Marcus Stoinis", censusCSV[0].player);
         } catch (CricketLeagueAnalyserException e ) { }
     }
 }
